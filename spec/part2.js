@@ -238,7 +238,7 @@
         var source = {};
         var defaulted = _.defaults(destination, source);
 
-        expect(defaulted).to.equal(destination); // .equal uses (===) under the hood
+        expect(defaulted).to.equal(destination); // .equal uses (===) under the hoood
       });
 
       it('should copy a property if that key is not already set on the target', function() {
