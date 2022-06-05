@@ -304,7 +304,7 @@
     return function() {
       if (!alreadyCalled) {
         // TIP: .apply(this, arguments) is the standard way to pass on all of the
-        // infromation from one function call to another.
+        // information from one function call to another.
         result = func.apply(this, arguments);
         alreadyCalled = true;
       }
@@ -322,6 +322,15 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    //I - function
+    //O - object
+    //C -
+    //E - if we are given non primitive arguments, so we should stringify
+    var memos = {};
+    return function() {
+      var serialization = JSON.stringify(arguments);
+      return memos[serialization] = memos[serialization] || func.apply(this, arguments);
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -331,6 +340,7 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    setTimeout.apply(this, arguments);
   };
 
 
@@ -345,6 +355,16 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var copy = array.slice();
+    var result = [];
+
+    for (var i = 0; i < array.length; i++) {
+      var random = Math.floor(Math.random() * copy.length);
+      result.push(copy[random]);
+      copy.splice(random, 1);
+    }
+
+    return result;
   };
 
 
